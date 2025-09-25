@@ -5,6 +5,7 @@ import com.example.library.membershipcard.MembershipCard;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Member {
     private MembershipCard membershipCard;
 
     @ManyToMany
-    private List<Book> borrowedBooks;
+    private List<Book> borrowedBooks = new ArrayList<>();
 
 
     public Member() {
@@ -66,4 +67,13 @@ public class Member {
     public void setMembershipCard(MembershipCard membershipCard) {
         this.membershipCard = membershipCard;
     }
+
+    public List<Book> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public void setBorrowedBooks(List<Book> borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Book {
@@ -74,5 +75,17 @@ public class Book {
 
     public void setBorrowedByMembers(List<Member> borrowedByMembers) {
         this.borrowedByMembers = borrowedByMembers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(isbn, book.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(isbn);
     }
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.criteria.CriteriaBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,10 +16,11 @@ public class Author {
     @GeneratedValue
     private Integer id;
     private String name;
+    private String email;
     private String nationality;
 
     @OneToMany(mappedBy = "author")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     public Author() {
     }
@@ -28,6 +30,22 @@ public class Author {
         this.name = name;
         this.nationality = nationality;
         this.books = books;
+    }
+
+    public Author(Integer id, String name, String email, String nationality, List<Book> books) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.nationality = nationality;
+        this.books = books;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getId() {

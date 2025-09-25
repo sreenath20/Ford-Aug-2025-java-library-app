@@ -2,5 +2,10 @@ package com.example.library.author;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AuthorRepository extends JpaRepository<Author,Integer> {
+import java.util.Optional;
+
+public interface AuthorRepository extends JpaRepository<Author, Integer> {
+
+    Optional<Author> findByEmail(String email);
+
 }
