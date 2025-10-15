@@ -13,4 +13,5 @@ public interface AuthorService {
 
     List<Book> getAllBooksWrittenByAutherEmailId(String authorEmailId)throws AuthorNotFoundException,NoBooksFoundException  ;
 
+    List<Author> getAllAuthors();
 }

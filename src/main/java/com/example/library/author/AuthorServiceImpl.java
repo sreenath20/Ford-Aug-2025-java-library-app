@@ -62,4 +62,9 @@ public class AuthorServiceImpl implements AuthorService {
             throw new NoBooksFoundException("No books found for given author");
         return foundAuthor.getBooks();
     }
+
+    @Override
+    public List<Author> getAllAuthors() {
+        return this.authorRepository.findAll();
+    }
 }

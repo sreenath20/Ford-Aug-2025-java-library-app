@@ -30,4 +30,8 @@ public class AuthorController {
     public List<Book> getAllBooksByAuthorEmailId(@PathVariable String emailId) throws AuthorNotFoundException, NoBooksFoundException {
         return this.authorService.getAllBooksWrittenByAutherEmailId(emailId);
     }
+    @GetMapping
+    public List<Author> getAllAuthors(){
+        return this.authorService.getAllAuthors();
+    }
 }
