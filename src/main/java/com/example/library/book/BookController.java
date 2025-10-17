@@ -42,4 +42,10 @@ public class BookController {
     public List<Book> getBooks() {
         return bookService.getAllBooks();
     }
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable("id") Integer id){
+        return this.bookService.getBookById(id);
+
+    }
+
 }

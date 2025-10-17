@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/authors")
+@CrossOrigin( origins = "*")//"http://localhost:4200/")
 public class AuthorController {
 
     @Autowired
@@ -26,6 +27,11 @@ public class AuthorController {
         return this.authorService.addNewBookToAuthorByEmailId(authorEmailId, newBook);
     }
 
+    @PutMapping("/{authorEmailId}/books/")
+    public Author updateBookOfAuthorByEmailId(@PathVariable String authorEmailId, @RequestBody Book newBook) throws AuthorNotFoundException, BookAlreadyExistsException {
+        return this.authorService.updateBookOfAuthorByEmailId(authorEmailId, newBook);
+    }
+
     @GetMapping("{emailId}/books")
     public List<Book> getAllBooksByAuthorEmailId(@PathVariable String emailId) throws AuthorNotFoundException, NoBooksFoundException {
         return this.authorService.getAllBooksWrittenByAutherEmailId(emailId);
@@ -33,5 +39,10 @@ public class AuthorController {
     @GetMapping
     public List<Author> getAllAuthors(){
         return this.authorService.getAllAuthors();
+    }
+
+    @DeleteMapping("/{authorEmailId}/books/{id}")
+    public Author updateBookOfAuthorByEmailId(@PathVariable String authorEmailId, @PathVariable("id") Integer bookId) throws AuthorNotFoundException, BookAlreadyExistsException {
+        return this.authorService.deleteBookOfAuthorByEmailId(authorEmailId, bookId);
     }
 }

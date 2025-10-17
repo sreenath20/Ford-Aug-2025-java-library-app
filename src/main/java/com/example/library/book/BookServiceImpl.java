@@ -39,4 +39,11 @@ public class BookServiceImpl implements BookService {
     public List<Book> getAllBooks() {
         return this.bookRepository.findAll();
     }
+
+    @Override
+    public Book getBookById(Integer id) {
+        return this.bookRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Book not found for Id"+id));
+
+    }
 }

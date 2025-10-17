@@ -14,4 +14,8 @@ public interface AuthorService {
     List<Book> getAllBooksWrittenByAutherEmailId(String authorEmailId)throws AuthorNotFoundException,NoBooksFoundException  ;
 
     List<Author> getAllAuthors();
+
+    Author updateBookOfAuthorByEmailId(String authorEmailId, Book newBook) throws AuthorNotFoundException, BookAlreadyExistsException;
+
+    Author deleteBookOfAuthorByEmailId(String authorEmailId, Integer bookId);
 }

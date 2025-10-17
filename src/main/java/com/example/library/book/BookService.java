@@ -12,4 +12,6 @@ public interface BookService {
     Page<Book> getBooks(int page, int size, String sortBy, String direction);
 
     List<Book> getAllBooks();
+
+    Book getBookById(Integer id);
 }
