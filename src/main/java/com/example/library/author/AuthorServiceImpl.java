@@ -33,15 +33,15 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author addNewBookToAuthorByEmailId(String authorEmailID, Book newBook) throws AuthorNotFoundException,BookAlreadyExistsException {
+    public Author addNewBookToAuthorByEmailId(String authorEmailID, Book newBook) throws AuthorNotFoundException, BookAlreadyExistsException {
 
         Optional<Author> foundAuthorOpt = this.authorRepository.findByEmail(authorEmailID);
         if (foundAuthorOpt.isEmpty())
             throw new AuthorNotFoundException("Author by email not found.");
         // check if isbn already exists
         Optional<Book> foundBookOpt = this.bookRepository.findByIsbn(newBook.getIsbn());
-        if(foundBookOpt.isPresent())
-            throw new BookAlreadyExistsException("Book already exists with ISBN:"+newBook.getIsbn());
+        if (foundBookOpt.isPresent())
+            throw new BookAlreadyExistsException("Book already exists with ISBN:" + newBook.getIsbn());
         Author foundAuthor = foundAuthorOpt.get();
         // assign the author to book
         newBook.setAuthor(foundAuthor);
@@ -77,19 +77,19 @@ public class AuthorServiceImpl implements AuthorService {
 
         // check if isbn already exists if you enable isbn editable
         Optional<Book> foundBookOpt = this.bookRepository.findByIsbn(updateBook.getIsbn());
-        if(foundBookOpt.isPresent())
-            throw new BookAlreadyExistsException("Book already exists with ISBN:"+updateBook.getIsbn());
+        if (foundBookOpt.isPresent())
+            throw new BookAlreadyExistsException("Book already exists with ISBN:" + updateBook.getIsbn());
 
         Author foundAuthor = foundAuthorOpt.get();
-       Book book= foundAuthor.getBooks().stream()
-                .filter(b->b.getId().equals(updateBook.getId()))
-                        .findFirst().orElseThrow(()->new RuntimeException("Book not found for this author"));
-       // update author book in collection
-       book.setTitle(updateBook.getTitle());
-       book.setIsbn(updateBook.getIsbn());
+        Book book = foundAuthor.getBooks().stream()
+                .filter(b -> b.getId().equals(updateBook.getId()))
+                .findFirst().orElseThrow(() -> new RuntimeException("Book not found for this author"));
+        // update author book in collection
+        book.setTitle(updateBook.getTitle());
+        book.setIsbn(updateBook.getIsbn());
 
 
-        return  this.authorRepository.save(foundAuthor);
+        return this.authorRepository.save(foundAuthor);
     }
 
     @Override
@@ -99,10 +99,11 @@ public class AuthorServiceImpl implements AuthorService {
             throw new RuntimeException("Author by email not found.");
 
         Author foundAuthor = foundAuthorOpt.get();
-        Book book= foundAuthor.getBooks().stream()
-                .filter(b->b.getId().equals(bookId))
-                .findFirst().orElseThrow(()->new RuntimeException("Book not found for this author"));
+        Book book = foundAuthor.getBooks().stream()
+                .filter(b -> b.getId().equals(bookId))
+                .findFirst().orElseThrow(() -> new RuntimeException("Book not found for this author"));
         foundAuthor.getBooks().remove(book);
-return  this.authorRepository.save(foundAuthor);
+        this.bookRepository.delete(book);
+        return this.authorRepository.save(foundAuthor);
     }
 }
